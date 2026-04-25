@@ -15,6 +15,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app, "landing-page-db");
 
+const params = new URLSearchParams(window.location.search);
+const utm_source = params.get("utm_source") || "direto";
+
 // Máscara do WhatsApp
 const whatsappInput = document.getElementById('whatsapp');
 
@@ -68,6 +71,7 @@ document.getElementById("form").addEventListener("submit", async function(e) {
       nome,
       email,
       whatsapp,
+      utm_source,
       createdAt: serverTimestamp()
     });
     console.log("3 - Salvou no Firestore");
@@ -93,6 +97,7 @@ try {
       nome,
       email,
       whatsapp,
+      utm_source,
       createdAt: new Date().toISOString(),
       status: "new"
     }),
